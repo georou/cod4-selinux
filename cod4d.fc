@@ -1,0 +1,5 @@
+HOME_DIR/cod4-srv(/.*)?				gen_context(system_u:object_r:cod4d_home_t,s0)
+HOME_DIR/\.callofduty4(/.*)?			gen_context(system_u:object_r:cod4d_home_t,s0)
+HOME_DIR/cod4-srv/cod4_lnxded		--	gen_context(system_u:object_r:cod4d_exec_t,s0)
+
+/usr/lib/systemd/system/cod4-srv.*	--	gen_context(system_u:object_r:cod4d_unit_file_t,s0)
