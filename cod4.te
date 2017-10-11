@@ -1,0 +1,50 @@
+policy_module(cod4, 1.1)
+
+########################################
+#
+# Declarations
+#
+
+#permissive cod4_t;
+
+type cod4_t;
+type cod4_exec_t;
+init_daemon_domain(cod4_t, cod4_exec_t)
+
+type cod4_home_t;
+userdom_user_home_content(cod4_home_t)
+files_type(cod4_home_t)
+
+type cod4_unit_file_t;
+systemd_unit_file(cod4_unit_file_t)
+
+type cod4_port_t;
+corenet_port(cod4_port_t)
+
+########################################
+##
+## Local policy
+##
+
+allow cod4_t self:netlink_route_socket { create setopt };
+allow cod4_t self:process { execmem execstack };
+allow cod4_t self:udp_socket { bind connect create getattr read setopt write };
+
+allow cod4_t cod4_port_t:udp_socket name_bind;
+
+manage_files_pattern(cod4_t, cod4_home_t, cod4_home_t)
+manage_dirs_pattern(cod4_t, cod4_home_t, cod4_home_t)
+exec_files_pattern(cod4_t, cod4_home_t, cod4_home_t)
+
+userdom_user_home_dir_filetrans(cod4_t, cod4_home_t, { file dir })
+
+corenet_udp_bind_generic_node(cod4_t)
+
+dev_list_sysfs(cod4_t)
+
+auth_read_passwd(cod4_t)
+
+sysnet_read_config(cod4_t)
+
+userdom_manage_user_home_content_dirs(cod4_t)
+userdom_manage_user_home_content_files(cod4_t)

@@ -15,7 +15,7 @@ Other Call Of Duty Module's also available. See my github.
 * You have an understanding how SELinux works.
 * All server files are kept in the home directory we create.
 * Directory names are exactly as the ones listed in the file context. ".fc".
-* Since systemd will be starting the cod4d server, you won't have a local console. If you need to issue rcon commands, you'll need to join the game.
+* Since systemd will be starting the cod4 server, you won't have a local console. If you need to issue rcon commands, you'll need to join the game.
 * Logs will be in the ~/.callofduty4 directory by default. Not within the cod4-srv dir.
 * Server runs on port 28961 udp.
 * Completely systemd operated, start and stop with automatic restart on failure.
@@ -37,14 +37,14 @@ cp -v cod4-srv.service /etc/systemd/system
 systemctl daemon-reload
 
 # Install the SELinux policy module. Compile it before hand to ensure proper compatibility (see below)
-semodule -i cod4d.pp
+semodule -i cod4.pp
 
 # Restore all the correct context labels
 restorecon -v /etc/systemd/system/cod4-srv.service
 restorecon -Rv /home/cod4
 
 # Add the port to SELinux (the port can be different, also change it in the service file)
-semanage port -a -t cod4d_port_t -p udp 28962
+semanage port -a -t cod4_port_t -p udp 28962
 
 # Open require firewall ports
 firewall-cmd --permanent --add-port=28961/udp
@@ -63,7 +63,7 @@ Ensure you have the `selinux-policy-devel` package installed.
 yum install selinux-policy-devel
 # Change to the directory containing the .fc & .te files
 cd cod4-selinux
-make -f /usr/share/selinux/devel/Makefile cod4d.pp
+make -f /usr/share/selinux/devel/Makefile cod4.pp
 ```
 
 ## Optional Security Steps
@@ -88,7 +88,7 @@ yum install policycoreutils-devel
 
 ## Future To Do
 
-* Allow external access to the log file - Will need a new cod4d_log_t type and interface.
+* Allow external access to the log file - Will need a new cod4_log_t type and interface.
 
 ## Compatibility Notes
 Built on CentOS 7.2 at the time with:

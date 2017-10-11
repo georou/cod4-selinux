@@ -1,0 +1,14 @@
+[Unit]
+Description="Call of Duty:4 Server"
+After=network-online.target
+
+[Service]
+Type=idle
+User=cod4
+Group=cod4
+WorkingDirectory=/home/cod4/cod4-srv
+Environment=LD_LIBRARY_PATH=/home/cod4/cod4-srv
+ExecStart=/home/cod4/cod4-srv/cod4_lnxded +set dedicated 1 +set net_ip 10.1.1.30 +set net_port 28962 +set sv_punkbuster 0 +set ttycon 0 +exec server.cfg +map_rotate
+
+[Install]
+WantedBy=multi-user.target
