@@ -17,8 +17,9 @@ Other Call Of Duty Module's also available. See my github.
 * Directory names are exactly as the ones listed in the file context. ".fc".
 * Since systemd will be starting the cod4 server, you won't have a local console. If you need to issue rcon commands, you'll need to join the game.
 * Logs will be in the ~/.callofduty4 directory by default. Not within the cod4-srv dir.
-* Server runs on port 28961 udp.
+* Server runs on port 28962 udp.
 * Completely systemd operated, start and stop with automatic restart on failure.
+* You need to modify the IP in the service file
 
 
 ## Installation
